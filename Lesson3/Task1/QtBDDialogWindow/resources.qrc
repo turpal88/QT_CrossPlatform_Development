@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>../../icons/@Exit1.bmp</file>
+        <file>../../icons/BOTTOM.BMP</file>
+    </qresource>
+</RCC>
