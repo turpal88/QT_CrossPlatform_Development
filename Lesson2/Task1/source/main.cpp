@@ -2,8 +2,9 @@
 #include <QtNetwork>
 #include <QtSql>
 #include <QDebug>
+#include <QtPlugin>
 
-
+//Q_IMPORT_PLUGIN(qsqlpsql)
 
 
 int main(int argc, char** argv){
@@ -29,6 +30,7 @@ int main(int argc, char** argv){
         }
 
     }else{
+        qDebug() << db.lastError();
 
         qDebug() << "Could not to connect to database";
     }
