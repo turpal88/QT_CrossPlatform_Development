@@ -14,22 +14,23 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+   ~MainWindow();
 
 private:
     Ui::MainWindow *ui;
     StopWatch* sw;
 
 
-Q_SIGNALS:
-//void btn_stop_start_released(QString str);
-void init_start_stop_btn_title(QString start_stop_btn_title);
-private Q_SLOTS:
+signals:
 
-    void start_stop_btn_toggle(QString str);
+private Q_SLOTS:
+    //Слот для изменения названия кнопки Старт/Стоп при нажатии на кнопку
+    void toggle_start_stop_btn();
+
     void get_timer_value(QTime timer_value);
     void get_round_info(int round_number, QTime round_time);
-    void get_btn_clear_round_enabled_flag(bool is_btn_clear_enabled, bool is_btn_round_enabled);
-    void clear_round_field_info();
+    void get_round_info(QString str);
+    void get_btn_clear_enabled_flag(bool is_btn_clear_enabled);
+
 };
 #endif // MAINWINDOW_H
