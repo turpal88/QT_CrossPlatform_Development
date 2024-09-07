@@ -29,8 +29,8 @@ private Q_SLOTS:
 
     void get_timer_value(QTime timer_value);
     void get_round_info(int round_number, QTime round_time);
-    void get_round_info(QString str);
-    void get_btn_clear_enabled_flag(bool is_btn_clear_enabled);
+    void get_round_info(void);
+    void get_btn_clear_enabled_flag(bool is_btn_clear_enabled, bool is_btn_round_enabled);
 
 };
 #endif // MAINWINDOW_H

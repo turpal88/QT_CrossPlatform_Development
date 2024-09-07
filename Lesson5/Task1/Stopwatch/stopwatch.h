@@ -16,8 +16,8 @@ signals:
 
     void set_timer_value(QTime timer_value);
     void set_round_info(int round_number, QTime round_time);
-    void set_round_info(QString str);
-    void set_btn_clear_enabled_flag(bool is_btn_clear_enabled);
+    void set_round_info(void);
+    void set_btn_clear_enabled_flag(bool is_btn_clear_enabled, bool is_btn_round_enabled);
 
 public Q_SLOTS:
 
@@ -39,7 +39,7 @@ private:
 
     //Флаги доступности для кнопок в основном виджете
     bool is_btn_clear_enabled;
-    //bool is_btn_round_enabled;
+    bool is_btn_round_enabled;
 
     struct Round{
 

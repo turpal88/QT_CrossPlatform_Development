@@ -22,9 +22,9 @@
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="QTimeEdit" name="timeEdit">
-         <property name="readOnly">
-          <bool>false</bool>
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>TextLabel</string>
          </property>
         </widget>
        </item>

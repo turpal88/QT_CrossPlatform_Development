@@ -12,7 +12,7 @@ StopWatch::StopWatch(QObject *parent) : QObject(parent)
 
 
     is_btn_clear_enabled = false;
-
+    is_btn_round_enabled = false;
 
     round_vector.clear();
 
@@ -34,28 +34,30 @@ void StopWatch::start_stop_timer(){
         this->is_timer_started = true;
         timer->start();
         is_btn_clear_enabled = false;
+        is_btn_round_enabled = true;
 
     }
     else{
         this->is_timer_started = false;
         timer->stop();
         is_btn_clear_enabled = true;
-        round_vector.push_back(Round(round_vector.size() + 1, *timer_value));
+        is_btn_round_enabled = false;
 
 
-        emit set_btn_clear_enabled_flag(is_btn_clear_enabled);
+
+
     }
 
-
+    emit set_btn_clear_enabled_flag(is_btn_clear_enabled, is_btn_round_enabled);
 
 }
 
 
 
 void StopWatch::get_timer_value_msec(){
-    if(timer_value->msec() > 100){
+
     emit set_timer_value(*timer_value);
-    }
+
 
 
 
@@ -70,16 +72,15 @@ void StopWatch::btn_clear_release(){
 
     round_vector.clear();
     is_btn_clear_enabled = false;
-    emit set_btn_clear_enabled_flag(is_btn_clear_enabled);
+    is_btn_round_enabled = false;
+    emit set_btn_clear_enabled_flag(is_btn_clear_enabled, is_btn_round_enabled);
     emit set_timer_value(*timer_value);
-    emit set_round_info("Нет ни одного круга");
+    emit set_round_info();
 }
 
 void StopWatch::btn_round_release(){
-    if(round_vector.size() == 0){
-        emit set_round_info("Нет ни одного круга");
-    }
-    else if(round_vector.size() == 1){
+    round_vector.push_back(Round(round_vector.size() + 1, *timer_value));
+    if(round_vector.size() == 1){
         emit set_round_info(round_vector.at(round_vector.size() - 1).round_number,
                             round_vector.at(round_vector.size() - 1).round_time);
         //qDebug() << result_timer_value->toString("H:mm:ss.zzz");

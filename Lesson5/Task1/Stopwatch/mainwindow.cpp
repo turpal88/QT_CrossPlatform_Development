@@ -13,16 +13,17 @@ MainWindow::MainWindow(QWidget *parent)
     ui->btn_start_stop->setText("Старт");
     ui->btn_clear->setText("Очистить");
     ui->btn_round->setText("Круг");
-    ui->timeEdit->setReadOnly(true);
-    ui->timeEdit->setButtonSymbols(QAbstractSpinBox::NoButtons);
-    ui->timeEdit->setDisplayFormat("H:mm:ss.zzz");
+    ui->label->setAlignment(Qt::AlignHCenter);
+    ui->label->setText("0:00:00.000");
+    ui->textBrowser->setReadOnly(true);
+
     ui->groupBox->setTitle("Кнопки");
     ui->groupBox_2->setTitle("Время секундомера");
 
 
 
     ui->btn_clear->setEnabled(false);
-    ui->btn_round->setEnabled(true);
+    ui->btn_round->setEnabled(false);
 
 
     connect(ui->btn_start_stop, &QPushButton::released, this, &MainWindow::toggle_start_stop_btn);
@@ -33,7 +34,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->btn_round, &QPushButton::released, sw, &StopWatch::btn_round_release);
     connect(sw, &StopWatch::set_btn_clear_enabled_flag, this, &MainWindow::get_btn_clear_enabled_flag);
     connect(sw, qOverload<int, QTime>(&StopWatch::set_round_info), this, qOverload<int, QTime>(&MainWindow::get_round_info));
-    connect(sw, qOverload<QString>(&StopWatch::set_round_info), this, qOverload<QString>(&MainWindow::get_round_info));
+    connect(sw, qOverload<>(&StopWatch::set_round_info), this, qOverload<>(&MainWindow::get_round_info));
 
 }
 
@@ -57,22 +58,24 @@ void MainWindow::toggle_start_stop_btn(){
 
 
 void MainWindow::get_timer_value(QTime timer_value){
-    ui->timeEdit->setTime(timer_value);
+    ui->label->setText(timer_value.toString("H:mm:ss.zzz"));
+    //ui->timeEdit->setTime(timer_value);
 
 }
 
 void MainWindow::get_round_info(int round_number, QTime round_time){
     QString str = "Круг № " + QString::number(round_number) + ". Время круга: " + round_time.toString("H:mm:ss.zzz");
-    ui->textBrowser->setText(str);
+    ui->textBrowser->insertPlainText(str + "\n");
 
 }
 
-void MainWindow::get_round_info(QString str){
-    ui->textBrowser->setText(str);
+void MainWindow::get_round_info(){
+    ui->textBrowser->clear();
 }
 
-void MainWindow::get_btn_clear_enabled_flag(bool is_btn_clear_enabled){
+void MainWindow::get_btn_clear_enabled_flag(bool is_btn_clear_enabled, bool is_btn_round_enabled){
     ui->btn_clear->setEnabled(is_btn_clear_enabled);
+    ui->btn_round->setEnabled(is_btn_round_enabled);
 
 
 }
